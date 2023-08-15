@@ -13,15 +13,17 @@ class Player:
         self.tokens['gold'] = 0
         self.cards = []
         self.reserved_cards = []
+        self.nobles = []
         self.score = 0
 
     def get_state(self):
         return {'tokens': self.tokens,
                 'cards': self.cards,
+                'nobles': self.nobles,
+                'reserved': self.reserved_cards,
                 'score': self.score}
 
     def take_turn(self, game_state):
-        # TODO: Make AI that learns to evaluate win chance from a given board state
         # # Take a random set of tokens
         # num_tokens = random.randint(2, 3)
         # if num_tokens == 2:

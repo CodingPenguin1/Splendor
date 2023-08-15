@@ -1,17 +1,20 @@
 from deck import Deck
 from player import Player
+from ai_player import AI_Player
 
 
 SETUP_COUNTS = {2: (4, 3),  # num_players: (num_tokens, num_nobles)
                 3: (5, 4),  # there are always 5 gold tokens
-                4: (7, 4)}
+                4: (7, 5)}
 COLORS = ['black', 'blue', 'green', 'red', 'white']
 
 
 class Game:
     def __init__(self, n_players=4):
         self.n_players = n_players
-        self.players = [Player() for _ in range(n_players)]
+        # self.players = [Player() for _ in range(n_players)]
+        self.players = [AI_Player()]
+        self.players.extend([Player() for _ in range(n_players - 1)])
         self.current_player = 0
 
         self._setup()
@@ -43,9 +46,11 @@ class Game:
         return self.players[self.current_player]
 
     def get_state(self):
-        return {'round': self.round,
-                'tokens': self.tokens,
-                'board': self.board}
+        return {"round": self.round,
+                "tokens": self.tokens,
+                "board": self.board,
+                "players": [player.get_state() for player in self.players]
+                }
 
     def process_turn(self):
         game_state = self.get_state()
@@ -212,4 +217,4 @@ class Game:
 if __name__ == '__main__':
     game = Game()
     game.process_turn()
-    # print(game)
+    # print(game.get_state())

@@ -32,7 +32,7 @@ class Deck:
             color = row['color']
             points = row['points']
             cost = {color: row[f'cost_{color}'] for color in COLORS}
-            self.cards.append({'color': color, 'points': points, 'cost': cost})
+            self.cards.append({'color': color, 'points': points, 'cost': cost, 'tier': tier})
         self.shuffle()
 
     def reset(self):
